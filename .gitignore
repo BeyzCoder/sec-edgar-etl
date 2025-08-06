@@ -1,0 +1,7 @@
+.env
+/venv/
+/edgar_companyfacts/
+/edgar_companysubmissions/
+edgar_companyavailable.json
+edgar_companytickers.json
+listticker.json
