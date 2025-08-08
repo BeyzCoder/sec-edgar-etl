@@ -138,15 +138,15 @@ if __name__ == "__main__":
     # These functions will only be running once.
     print("Grabbing all the resources needed for data extraction...")
     # edgar_companyfacts folder.
-    # download_edgar_folder("COMPANYFACTS_FOLDER_URL", "companyfacts")
+    download_edgar_folder("COMPANYFACTS_FOLDER_URL", "companyfacts")
     # edgar_companysubmissions folder.
-    # download_edgar_folder("SUBMISSIONS_FOLDER_URL", "companysubmissions")
+    download_edgar_folder("SUBMISSIONS_FOLDER_URL", "companysubmissions")
     # edgar_companytickers json.
-    # download_egdar_tickers("TICKERS_LIST_URL")
+    download_egdar_tickers("TICKERS_LIST_URL")
 
     print("Cleaning up files and recording what company are availables...")
     # Creating a new list that only contains ticker that has CIK file.
-    # filter_empty_data()
+    filter_empty_data()
 
     print("Making a template json for storing data...")
     # Creating a template json to store the actual data of ticker.
