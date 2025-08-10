@@ -3,23 +3,35 @@ import zipfile
 import json
 import os
 import io
+import sys
 
 from dotenv import load_dotenv
 load_dotenv() # Load environment variables from .env file
 
 
 def download_edgar_folder(URL, filename):
-    res = req.get(os.getenv(URL), headers={"User-Agent" : "Mozilla/5.0"})
+    HEADERS = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Referer": "https://www.sec.gov/",
+    }
+    res = req.get(os.getenv(URL), headers=HEADERS)
     if res.status_code == 200:
         with zipfile.ZipFile(io.BytesIO(res.content)) as z:
             z.extractall(f"resources/edgar_{filename}")
             print("Folder download and extracted!")
     else:
         print("Failed to download the folder. Re-run the function, status code:", res.status_code)
+        sys.exit()
 
 
 def download_egdar_tickers(URL):
-    res = req.get(os.getenv(URL), headers={"User-Agent" : "Mozilla/5.0"})
+    HEADERS = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Referer": "https://www.sec.gov/",
+    }
+    res = req.get(os.getenv(URL), headers=HEADERS)
     if res.status_code == 200:
         tickers = res.json()
         with open(f"resources/listticker.json", "w") as f:
@@ -27,6 +39,7 @@ def download_egdar_tickers(URL):
             print("File download complete!")
     else:
         print("Failed to download the file. Re-run the function, status code:", res.status_code)
+        sys.exit()
 
 
 def filter_empty_data():
