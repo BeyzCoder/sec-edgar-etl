@@ -123,6 +123,7 @@ def generate_template_ticker():
                     'CapitalExpenditure' : {},
                     'RepaymentDebt' : {},
                     'RepurchaseCapitalStock' : {},
+                    'NetCashFlow' : {},
                     'FreeCashFlow' : {},
                 },
             }
