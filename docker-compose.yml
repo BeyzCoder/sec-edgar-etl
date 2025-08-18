@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: pgdb
+    environment:
+      POSTGRES_DB: companydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql 
+    networks:
+      - backend
+
+  app:
+    build: ./app
+    container_name: json_loader
+    depends_on:
+      - db
+    networks:
+      - backend
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: companydb
+    volumes:
+      - ./resources/edgar_companytickers.json:/app/edgar_companytickers.json
+
+networks:
+  backend:
