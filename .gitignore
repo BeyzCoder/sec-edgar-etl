@@ -6,7 +6,6 @@ resources/edgar_companysubmissions/
 edgar_companyavailable.json
 edgar_companytickers.json
 listticker.json
-factors_statements.py
 /factors_extraction.log
 companydb_dump.sql
 *.log
