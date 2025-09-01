@@ -1,8 +1,10 @@
 from sqlalchemy import create_engine, Column, Integer, String, Float, Date, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
+from sqlalchemy.exc import OperationalError
 from datetime import datetime
-import os
+import time
 import json
+import os
 
 Base = declarative_base()
 
@@ -43,8 +45,18 @@ class CompanyFact(Base):
 
 
 if __name__ == "__main__":
-    engine = create_engine(DB_URL, echo=False)
-    SessionLocal = sessionmaker(bind=engine)
+    engine = create_engine(DB_URL)
+    for attempt in range(10):
+        try:
+            with engine.connect() as conn:
+                print("Database is ready!")
+                break
+        except OperationalError:
+            print("Database not ready, retrying...")
+            time.sleep(5)
+    else:
+        raise RuntimeError("Database never became available")
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     Base.metadata.create_all(engine)
 
     with open("edgar_companytickers.json", "r") as f:

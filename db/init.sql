@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS company_tickers(
     ticker_symbol VARCHAR(32) UNIQUE NOT NULL,
     name VARCHAR(128),
     currency VARCHAR(10)
-)
+);
 
 CREATE TABLE IF NOT EXISTS company_facts(
     id SERIAL PRIMARY KEY,
@@ -15,4 +15,4 @@ CREATE TABLE IF NOT EXISTS company_facts(
     statement_type VARCHAR(32),
     key_factor VARCHAR(128),
     form_type VARCHAR(32)
-)
+);
